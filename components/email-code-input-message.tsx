@@ -1,0 +1,90 @@
+import { Button } from '@/components/ui/button'
+import React, { useState } from 'react'
+import { Input } from './ui/input'
+import { spinner } from './stocks'
+import { fetcher } from '@/lib/utils'
+import { useActions, useUIState } from 'ai/rsc'
+import { AI } from '@/lib/chat/actions'
+import { useFreeChatContext } from '@/lib/hooks/use-free-chat'
+import { apiEndpoint } from '@/lib/constants/config'
+import { usePathname } from 'next/navigation'
+import { showPrompts } from '@/lib/chat/prompt'
+import IceBreaker from './ice-breaker/ice-breaker'
+
+export function EmailCodeInputMessage() {
+  const [code, setCode] = useState('')
+  const [error, setError] = useState('')
+  const [isValidatingEmail, setValidatingEmail] = useState(false)
+  const path = usePathname()
+  const [_, setMessages] = useUIState<typeof AI>()
+  const { submitUserMessage } = useActions()
+  const { userEmail, linkedinPosts, isBypassMode } = useFreeChatContext()
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+
+    //  validation
+    setValidatingEmail(true)
+    try {
+      const response = await fetcher(
+        `${apiEndpoint}/chatbots/validate?email=${userEmail}&code=${code}&origin=${location.href}`
+      )
+      setValidatingEmail(false)
+
+      if (!isBypassMode && !response.success) {
+        setError(
+          response.msg ??
+            'No response. Please try again. If the problem persists, email us at contact@example.com.'
+        )
+        return
+      }
+
+      //  TODO: verify signature using public key
+
+      switch (path) {
+        case '/tools/linkedin-analyzer':
+          const responseMessage = await submitUserMessage(linkedinPosts)
+          setMessages(currentMessages => [...currentMessages, responseMessage])
+          break
+        case '/tools/ice-breaker':
+          showPrompts('Analyze', <IceBreaker />, setMessages)
+          break
+      }
+    } catch (e: any) {
+      setValidatingEmail(false)
+      setError(
+        e.message ||
+          'Invalid code. Double-check and enter a valid one. If the problem persists, email us at contact@example.com.'
+      )
+    }
+  }
+
+  return (
+    <form onSubmit={onSubmit} className="flex flex-col gap-4 text-sm">
+      <h1 className="text-xl font-semibold text-teal-500">Enter your code</h1>
+      <p>Check your email for a confirmation code to continue the chat.</p>
+      <div>
+        <Input
+          placeholder="ABCDEF"
+          className="w-full overflow-hidden bg-[#FFFFFF] dark:bg-[#071920] sm:rounded-md border-[1px] border-[#1F3C45]"
+          value={code}
+          onChange={e => {
+            setCode(e.target.value)
+          }}
+        />
+        <div className="flex gap-2 h-6 p-1">
+          {isValidatingEmail ? (
+            <>
+              {spinner}
+              <p>Validating your code...</p>
+            </>
+          ) : (
+            <p className=" text-red-500 italic">{error}</p>
+          )}
+        </div>
+      </div>
+      <Button type="submit">Submit Code</Button>
+    </form>
+  )
+}

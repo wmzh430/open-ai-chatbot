@@ -1,0 +1,329 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #ebf5f8;
+    --foreground: 240 10% 3.9%;
+    --chatbox-background: #cde2e7;
+    --chatbox-prompt: #ffffff;
+    --chatbox-input: #ffffff;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: #e76f51;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: #122830;
+    --foreground: 0 0% 98%;
+    --chatbox-background: #071920;
+    --chatbox-prompt: #122830;
+    --chatbox-input: #071920;
+
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: #e76f51;
+    --primary-foreground: #fff;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.dropzone {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-width: 2px;
+  border-radius: 2px;
+  border-color: #e76f51;
+  border-style: dashed;
+  background-color: #eee;
+  color: #bdbdbd;
+  outline: none;
+  transition: border 0.24s ease-in-out;
+}
+
+.dropzone:focus {
+  border-color: #2196f3;
+}
+
+.dropzone.disabled {
+  opacity: 0.6;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* background: rgba(255, 255, 255, 0.1); */
+  border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #18898d;
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #18a98d;
+}
+
+/* .dark.radix-themes {
+  --color-background: #122830;
+  --color-background: #ebf5f8;
+}
+
+.radix-themes [data-theme='dark'] {
+  --color-background: #122830;
+} */
+
+.radix-themes {
+  --default-font-family: Satoshi-Variable !important;
+  font-weight: 400 !important;
+}
+
+.opacity-gradient {
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.scrolled {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+/* 
+@media screen and (max-width: 768px) {
+  .slick-dots {
+    bottom: -12px !important;
+  }
+  button.slick-arrow {
+    position: absolute;
+    top: calc(100% + 2px) !important;
+  }
+}
+.magic-dots.slick-dots li.slick-active button:before {
+  color: #e76f51 !important;
+}
+
+button.slick-arrow {
+  position: absolute;
+  top: calc(100% + 14px);
+}
+.slick-prev::before,
+.slick-next::before {
+  font-family: 'Courier New', Courier, monospace !important;
+  font-size: 22px !important;
+  opacity: 1 !important;
+}
+
+button.slick-arrow.slick-next {
+  right: calc(50% - 110px);
+}
+
+button.slick-arrow.slick-prev {
+  left: calc(50% - 110px);
+}
+
+button.slick-arrow.slick-next,
+button.slick-arrow.slick-prev {
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background-color: #293d44;
+  border: 1px solid #3e5056;
+}
+
+button.slick-arrow.slick-next:hover,
+button.slick-arrow.slick-prev:hover {
+  background-color: #1e3036;
+}
+
+.slick-dots li {
+  margin: 0 !important;
+} */
+
+.orbit {
+  position: relative;
+  width: 220;
+  height: 220;
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(-32px) translateY(96px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(-32px) translateY(96px) rotate(-360deg);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  @keyframes orbit {
+    from {
+      transform: rotate(0deg) translateX(-22px) translateY(52px) rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg) translateX(-22px) translateY(52px)
+        rotate(-360deg);
+    }
+  }
+}
+
+@keyframes elementor-heading-title {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-40px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  @keyframes elementor-heading-title {
+    0% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(-20px);
+    }
+  }
+}
+
+.swiper {
+  width: 100%;
+  padding-bottom: 52px !important;
+}
+
+.swiper-slide {
+  font-size: 18px;
+  width: max-content !important;
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  object-fit: cover;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: calc(100% - 14px) !important;
+  opacity: 0.8;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #e76f51 !important;
+}
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  opacity: 1;
+}
+.swiper-button-prev {
+  background-image: url(/icons/arrow-left.svg) !important;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+  left: calc(50% - 80px) !important;
+}
+
+.swiper-button-next {
+  background-image: url(/icons/arrow-right.svg) !important;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+  right: calc(50% - 80px) !important;
+}
+
+.swiper-button-next::after {
+  display: none;
+}
+
+.swiper-button-prev::after {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .swiper {
+    padding-bottom: 36px !important;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 20px !important;
+    /* top: calc(100% - 10px) !important; */
+  }
+}
